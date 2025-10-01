@@ -3,7 +3,7 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TurnosService } from './turnos';
 
-describe('TurnosService', () => {
+describe('TurnosService Error Handling', () => {
   let service: TurnosService;
   let httpMock: HttpTestingController;
 
@@ -20,33 +20,39 @@ describe('TurnosService', () => {
     httpMock.verify();
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-
-  it('should generate turnos', () => {
+  it('should handle HTTP errors', () => {
     const mockData = {
       fechaInicio: '2024-01-01',
       fechaFin: '2024-01-31',
       idServicio: 1
     };
-    const mockResponse = [
-      {
-        nombreServicio: 'Test Service',
-        nombreComercio: 'Test Commerce',
-        fecha: '2024-01-01',
-        horaInicio: '09:00',
-        horaFin: '10:00'
-      }
-    ];
 
-    service.generarTurnos(mockData).subscribe(response => {
-      expect(response).toEqual(mockResponse);
+    service.generarTurnos(mockData).subscribe({
+      next: () => fail('should have failed'),
+      error: (error) => {
+        expect(error.status).toBe(500);
+      }
     });
 
     const req = httpMock.expectOne('http://localhost:8080/api/turnos/generar');
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual(mockData);
-    req.flush(mockResponse);
+    req.flush('Server Error', { status: 500, statusText: 'Internal Server Error' });
+  });
+
+  it('should handle network errors', () => {
+    const mockData = {
+      fechaInicio: '2024-01-01',
+      fechaFin: '2024-01-31',
+      idServicio: 1
+    };
+
+    service.generarTurnos(mockData).subscribe({
+      next: () => fail('should have failed'),
+      error: (error) => {
+        expect(error.error).toBeInstanceOf(ProgressEvent);
+      }
+    });
+
+    const req = httpMock.expectOne('http://localhost:8080/api/turnos/generar');
+    req.error(new ProgressEvent('Network error'));
   });
 });

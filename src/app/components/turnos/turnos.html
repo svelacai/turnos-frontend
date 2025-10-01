@@ -18,13 +18,22 @@
         <input type="date" [(ngModel)]="fechaFin" />
     </div>
 
-    <button (click)="generarTurnos()">Generar</button>
+    <button (click)="generarTurnos()" [disabled]="!fechaInicio || !fechaFin || !idServicio || cargando">
+      <span *ngIf="!cargando">Generar</span>
+      <span *ngIf="cargando">Generando...</span>
+    </button>
   </section>
 
   <hr> 
   
   <section class="lista-turnos">
     <h3>Turnos Generados</h3>
+    
+    <!-- Mensaje de respuesta del servidor -->
+    <div *ngIf="mensaje" [class]="hasError ? 'mensaje-error' : 'mensaje-exito'">
+      {{ mensaje }}
+    </div>
+    
     <table *ngIf="turnos.length > 0">
       <thead>
         <tr>
@@ -41,13 +50,17 @@
           <td>{{ t.nombreServicio }}</td>
           <td>{{ t.fecha | date:'dd/MM/yyyy' }}</td>
           
-          <td>{{ t.horaInicio | date:'h:mm a' }}</td>
-          <td>{{ t.horaFin | date:'h:mm a' }}</td>
+          <td>{{ t.horaInicio | date:'HH:mm' }}</td>
+          <td>{{ t.horaFin | date:'HH:mm' }}</td>
         </tr>
       </tbody>
     </table>
     
-    <p *ngIf="turnos.length === 0 && !fechaInicio">Introduce fechas y haz clic en Generar.</p>
-    <p *ngIf="turnos.length === 0 && fechaInicio">No se encontraron turnos para el rango y servicio seleccionado.</p>
+    <div *ngIf="cargando" class="mensaje-cargando">
+      <p>Generando turnos, por favor espere...</p>
+    </div>
+    
+    <p *ngIf="!turnosGenerados && !cargando">Introduce fechas y haz clic en Generar.</p>
+    <p *ngIf="turnos.length === 0 && turnosGenerados && !cargando && !hasError">No hay turnos disponibles para el rango seleccionado.</p>
   </section>
 </div>
