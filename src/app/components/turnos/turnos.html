@@ -1,0 +1,53 @@
+<div class="turnos-container">
+  <header>
+    <h2>Generación de Turnos</h2> 
+    <p>Usuario: <strong>{{ usuario }}</strong></p>
+  </header>
+
+  <section class="formulario">
+    <div class="input-row">
+        <input type="text" placeholder="Comercio" /> 
+        <input type="text" [(ngModel)]="idServicio" placeholder="Servicio ID" />
+    </div>
+
+    <div class="input-row">
+        <label>Fecha Inicial:</label>
+        <input type="date" [(ngModel)]="fechaInicio" />
+        
+        <label>Fecha Final:</label>
+        <input type="date" [(ngModel)]="fechaFin" />
+    </div>
+
+    <button (click)="generarTurnos()">Generar</button>
+  </section>
+
+  <hr> 
+  
+  <section class="lista-turnos">
+    <h3>Turnos Generados</h3>
+    <table *ngIf="turnos.length > 0">
+      <thead>
+        <tr>
+          <th>Comercio</th>
+          <th>Servicio</th>
+          <th>Fecha Turno</th>
+          <th>Hora Inicio</th>
+          <th>Hora Fin</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of turnos">
+          <td>{{ t.nombreComercio }}</td>
+          <td>{{ t.nombreServicio }}</td>
+          <td>{{ t.fecha | date:'dd/MM/yyyy' }}</td>
+          
+          <td>{{ t.horaInicio | date:'h:mm a' }}</td>
+          <td>{{ t.horaFin | date:'h:mm a' }}</td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <p *ngIf="turnos.length === 0 && !fechaInicio">Introduce fechas y haz clic en Generar.</p>
+    <p *ngIf="turnos.length === 0 && fechaInicio">No se encontraron turnos para el rango y servicio seleccionado.</p>
+  </section>
+</div>

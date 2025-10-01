@@ -1,0 +1,157 @@
+.turnos-container {
+    width: 90%; 
+    max-width: 800px; 
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff; 
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    font-family: Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dcdcdc; 
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+header h2 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+
+header p {
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+}
+
+header strong {
+    font-weight: bold;
+    color: #007bff; 
+}
+
+.formulario {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column; 
+    gap: 15px; 
+}
+
+.input-row {
+    display: flex;
+    gap: 20px; 
+    align-items: flex-end; 
+}
+
+.input-row > * {
+    flex: 1; 
+    min-width: 0; 
+}
+
+.formulario input[type="text"], 
+.formulario input[type="date"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box; 
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.formulario input[type="text"]:focus,
+.formulario input[type="date"]:focus {
+    border-color: #007bff;
+    outline: none; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+}
+
+.formulario label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px; 
+    display: block;
+}
+
+button {
+
+    
+    margin-top: 15px; 
+    padding: 12px 20px;
+    width: 200px; 
+    align-self: flex-end; 
+    background-color: #007bff; 
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #dcdcdc;
+    margin: 25px 0;
+}
+
+.lista-turnos h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.lista-turnos table {
+    width: 100%;
+    border-collapse: collapse; 
+    table-layout: fixed; 
+}
+
+.lista-turnos thead th {
+    background-color: #f8f9fa; 
+    color: #333;
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #dee2e6;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.lista-turnos tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #dee2e6;
+    color: #555;
+    font-size: 14px;
+}
+
+.lista-turnos tbody tr:nth-child(even) {
+    background-color: #f0f0f0; 
+}
+
+.lista-turnos tbody tr:hover {
+    background-color: #e9ecef; 
+}
+
+.lista-turnos p {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 14px;
+}
